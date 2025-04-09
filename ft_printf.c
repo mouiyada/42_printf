@@ -6,7 +6,7 @@
 /*   By: kyamada <kyamada@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:02:49 by kyamada           #+#    #+#             */
-/*   Updated: 2025/02/02 14:31:05 by kyamada          ###   ########.fr       */
+/*   Updated: 2025/04/08 20:02:04 by kyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	ft_checktype(int c, va_list args)
 		count += ft_puthex1(va_arg(args, unsigned int));
 	else if (c == 'X')
 		count += ft_puthex2(va_arg(args, unsigned int));
+	else if (c == '%')
+		count += write(1, "%", 1);
 	return (count);
 }
 
@@ -74,7 +76,7 @@ int	ft_printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			if (ft_strsearch(format[i], "cspdiuxX"))
+			if (ft_strsearch(format[i], "cspdiuxX%"))
 				count += ft_checktype(format[i], args);
 			else
 				count += write(1, &format[i], 1);
